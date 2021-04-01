@@ -1,23 +1,27 @@
 package analytics
 
 import (
-  "io/ioutil"
   "golang.org/x/oauth2"
   "golang.org/x/oauth2/google"
-  "github.com/joho/godotenv"
-  "os"
   "log"
+  "github.com/msk6252/BlogRankingAggregate/tools/aws"
   analytics "google.golang.org/api/analytics/v3"
 )
 
+const REGION = "ap-northeast-1"
 
-func getAnalytics() (*analytics.GaData, error) {
-  key, _ := ioutil.ReadFile("./secret.json")
+func GetAnalytics() (*analytics.GaData, error) {
+  key, err := aws.GetSecret("BLOG_RANKING_SECRET", "SECRET_JSON", REGION)
+  if err != nil {
+    log.Fatalln("GET SECRET ERROR: ", err)
+  }
 
-  viewId := GetEnv("ViewID")
+  byteKey := ([]byte)(key)
+
+  viewId, err := aws.GetSecret("BLOG_RANKING_SECRET", "ANALYTICS_VIEW_ID", REGION)
 
   jwtConf, err := google.JWTConfigFromJSON(
-    key,
+    byteKey,
     analytics.AnalyticsReadonlyScope,
   )
 

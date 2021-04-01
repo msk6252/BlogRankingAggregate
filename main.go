@@ -2,14 +2,17 @@ package main
 
 import (
   //"os"
-  //"log"
-
-  //"github.com/msk6252/BlogRankingAggregate/tools/analytics"
-  "github.com/msk6252/BlogRankingAggregate/tools/aws"
-  //"github.com/msk6252/BlogRankingAggregate/tools/twitter"
+  "log"
   "fmt"
+
+  "github.com/msk6252/BlogRankingAggregate/tools/analytics"
+  //"github.com/msk6252/BlogRankingAggregate/tools/twitter"
 )
 
 func main() {
-  fmt.Println(aws.GetSecret("GO_AWS_SECRET_MANAGER", "AWS_GO_SECRET_KEY", "ap-northeast-1"))
+  result, err := analytics.GetAnalytics()
+  if err != nil {
+    log.Fatalln("Get Secret Error")
+  }
+  fmt.Println(result)
 }
