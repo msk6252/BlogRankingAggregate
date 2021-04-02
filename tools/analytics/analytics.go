@@ -49,7 +49,7 @@ func GetAnalytics() *analytics.GaData {
 }
 
 func CreatePathHashMap(aryURL *analytics.GaData) map[string]int {
-  rep := regexp.MustCompile(`\?.*|/amp.*`)
+  rep := regexp.MustCompile(`/archives/|\?.*|/amp.*`)
   hashmap := map[string]int{}
 
   for _, row := range aryURL.Rows {

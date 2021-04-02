@@ -7,6 +7,7 @@ import (
 
 	"github.com/msk6252/BlogRankingAggregate/tools/analytics"
 	//"github.com/msk6252/BlogRankingAggregate/tools/twitter"
+	"github.com/msk6252/BlogRankingAggregate/tools/twordpress"
 )
 
 func main() {
