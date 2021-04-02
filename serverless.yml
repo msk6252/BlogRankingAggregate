@@ -1,0 +1,24 @@
+service: blog_ranking_tweet
+provider:
+  name: aws
+  region: ap-northeast-1
+  runtime: go1.x
+  stackName: blog-ranking-tweet
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - secretsmanager:GetSecretValue
+      Resource:
+        - "*"
+
+package:
+  exclude:
+    - ./**
+  include:
+    - ./bin/**
+
+functions:
+  main:
+    handler: bin/main
+    events:
+      - schedule: cron(0 0 ? * SUN *)
